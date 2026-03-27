@@ -52,8 +52,8 @@ Usa o padrao **Strategy**: uma interface comum com duas implementacoes intercamb
 | Script | O que faz |
 |---|---|
 | `ITrafficDataProvider.cs` | Interface que define o contrato `GetTrafficStatusAsync()` — qualquer provider deve implementar este metodo |
-| `HttpTrafficDataProvider.cs` | **Implementacao online** — faz `GET` em `localhost:3000/v1/traffic/status` usando `UnityWebRequest` e retorna os dados reais do backend |
-| `JsonTrafficDataProvider.cs` | **Implementacao offline** — le um arquivo JSON estatico (`Assets/Mock/`), util para testar sem o backend rodando |
+| `HttpTrafficDataProvider.cs` | **Implementacao online** faz `GET` em `localhost:3000/v1/traffic/status` usando `UnityWebRequest` e retorna os dados reais do backend |
+| `JsonTrafficDataProvider.cs` | **Implementacao offline** le um arquivo JSON estatico (`Assets/Mock/`), util para testar sem o backend rodando |
 
 ### Data/dto — Data Transfer Objects
 
@@ -67,12 +67,12 @@ Usa o padrao **Strategy**: uma interface comum com duas implementacoes intercamb
 |---|---|
 | `GameManager.cs` | **Orquestrador central** — inicia niveis, busca dados do provider, distribui para TrafficManager e PredictionScheduler, gerencia estados de vitoria/derrota e transicao entre niveis |
 | `TrafficManager.cs` | Recebe um `StatusDto` e aplica os valores no jogo: atualiza o spawner de veiculos, o multiplicador do jogador e o HUD, usando `TrafficMath` para as conversoes |
-| `PredictionScheduler.cs` | Agenda mudancas futuras de trafego — recebe a lista de `predicted_status` e dispara coroutines que aplicam cada predicao no tempo correto (`estimated_time`) |
+| `PredictionScheduler.cs` | Agenda mudancas futuras de trafego recebe a lista de `predicted_status` e dispara coroutines que aplicam cada predicao no tempo correto (`estimated_time`) |
 | `PlayerController.cs` | Controle do jogador — captura input (WASD / setas), move o personagem com `baseSpeed * weatherMultiplier`, reseta posicao ao colidir com veiculos |
-| `VehicleController.cs` | Comportamento individual de cada veiculo — move-se continuamente na direcao atribuida e se destroi ao sair da tela |
+| `VehicleController.cs` | Comportamento individual de cada veiculo move-se continuamente na direcao atribuida e se destroi ao sair da tela |
 | `VehicleSpawner.cs` | Instancia veiculos em pontos predefinidos a cada X segundos — o intervalo e a velocidade sao ajustados dinamicamente pelo `TrafficManager` |
-| `GoalZone.cs` | Zona de chegada — detecta colisao com o jogador e notifica o `GameManager` que o nivel foi vencido |
-| `TimerController.cs` | Contagem regressiva do nivel — duracao configuravel, dispara callback quando o tempo acaba (game over) |
+| `GoalZone.cs` | Zona de chegada detecta colisao com o jogador e notifica o `GameManager` que o nivel foi vencido |
+| `TimerController.cs` | Contagem regressiva do nivel duracao configuravel, dispara callback quando o tempo acaba (game over) |
 
 ### UI — Interface Visual
 
